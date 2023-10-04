@@ -9,19 +9,34 @@
 
 <body>
   <header><h1>Party List</h1></header>
-  <!-- * Show list of all names, dates, times, locations, and description of parties -->
+
   <section id="partyList">
-    <ul>
+    <ul id="parties">
     <!-- * Next to each party there is a delete button -->
     </ul>
   </section>
-  <section id="form">
-  <!-- * Create a form that allows the user to enter information for a new party -->
+
+  <section>
     <h2>New Party Form</h2>
-    <form>
+    <form id="newParty">
+      <label>
+        Name
+        <input type="text" name="name" />
+      </label>
+      <label>
+        Description
+        <input type="text" name="description" />
+      </label>
+      <label>
+        Date
+        <input type="text" name="date" />
+      </label>
+      <label>
+        Location
+        <input type="text" name="location" />
+      </label>
       <button id="submit">Submit</button>
     </form>
-  <!-- * Add a submit button for form. -->
   </section>
   
 </body>
