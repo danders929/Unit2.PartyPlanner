@@ -1,14 +1,14 @@
-// create variable API
+
 const API_URL = "https://fsa-crud-2aa9294fe819.herokuapp.com/api/2309-FSA-ET-WEB-FT-SF/events";
+
 const state = {
   parties: [],
 };
 // selects the #parties unordered list id
 const partyList = document.querySelector("#parties");
-// selects the #newParty form id
-test = document.querySelector("#newParty");
-// event listener for the submit button on form, calls the function addParty
-test.addEventListener("submit", addParty);
+
+const addPartyForm = document.querySelector("#newParty");
+addPartyForm.addEventListener("submit", addParty);
 
 /**
  * Synce state with the API and rerender
@@ -22,18 +22,20 @@ render();
 /**
  * update state with parties from API
  */
-async function getparties() {
+async function getParties() {
   // write a try/catch for getting the parties from API
   try {
+    // get a response from API
     const response = await fetch(API_URL);
     //assign the JSON to a variable
     const json = await response.json();
     //assign the json data to state.parties
     state.parties = json.data;
+  // catch error and return to console
   } catch(error){
     console.log(error);
-  };
-};
+  }
+}
 
 /**
  * Render parties from state
@@ -64,17 +66,17 @@ function renderParties() {
 
 
 // use event listener to fetch data for new party and return it to the partyList object
-async function addNewParty(event) {
+async function addParty(event) {
   event.preventDefault();
   try {
     const response = await fetch(API_URL, {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({
-        name: test.name.value,
-        description: test.description.value,
-        date: test.date.value,
-        location: test.location.value,
+        name: addPartyForm.name.value,
+        description: addPartyForm.description.value,
+        date: addPartyForm.date.value,
+        location: addPartyForm.location.value,
       }),
     });
     if(!response.ok){
@@ -85,4 +87,17 @@ async function addNewParty(event) {
     console.log(error);
   };
 };
+// const delPartyBtn = document.querySelector(".delete");
+// delPartyBtn.addEventListener("click", delParty);
+
+// use event listener to listen for a click event on delete button and remove from API
+// async function delParty(event) {
+//   event.preventDefault();
+//     try {
+//       const response = await fetch(API_URL/, {
+//         method: "DELETE",
+//         headers: {"content-Type": "application/json"},
+//     }
+//   })
+// }
 
