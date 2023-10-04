@@ -56,14 +56,18 @@ function renderParties() {
     <p>${party.description}<p>
     <p>${party.date}</p>
     <p>${party.location}</p>
-    <button class="delete">Delete</button>
+    <button class="delete" id="${party.id}">Delete</button>
     `;
+    const delPartyBtn = li.querySelector(".delete");
+    delPartyBtn.addEventListener("click", () => {
+      const partyId = party.id;
+      delParty(partyId);
+      console.log(partyId);
+    });
     return li;
   });
   partyList.replaceChildren(...partyPosts);
 };
-
-
 
 // use event listener to fetch data for new party and return it to the partyList object
 async function addParty(event) {
@@ -87,17 +91,23 @@ async function addParty(event) {
     console.log(error);
   };
 };
-// const delPartyBtn = document.querySelector(".delete");
-// delPartyBtn.addEventListener("click", delParty);
 
-// use event listener to listen for a click event on delete button and remove from API
-// async function delParty(event) {
-//   event.preventDefault();
-//     try {
-//       const response = await fetch(API_URL/, {
-//         method: "DELETE",
-//         headers: {"content-Type": "application/json"},
-//     }
-//   })
-// }
+// use event listener to listen for a click event on delete button and remove from API. Used help from ChatGPT for this part
+
+
+async function delParty(partyId) {
+  event.preventDefault();
+    try {
+      const response = await fetch(`${API_URL}/${partyId}`, {
+        method: "DELETE",
+        headers: {"content-Type": "application/json"}
+    });
+    if(!response.ok){
+      throw new Error("Failed to delete party");
+    }
+    render();
+    } catch(error){
+      console.log(error);
+    }
+  };
 
